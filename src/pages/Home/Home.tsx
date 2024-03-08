@@ -36,7 +36,7 @@ const Home = () => {
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-9xl px-4 md:px-6 mb-10">
         {languages.map((language, index) => (
-          <div key={index} onClick={(e)=>selectLanguageFromHomepage(language.value)} className="cursor-pointer cardsHome bg-gray-800 p-4 rounded-lg text-white text-[18px] flex justify-center">
+          <div key={index} onClick={(e)=>selectLanguageFromHomepage(language.value)} className="cursor-pointer cardsHome bg-[#141414d4] p-4 rounded-lg text-[#9E9E9E] text-[18px] flex justify-center">
             {language.label}
           </div>
         ))}

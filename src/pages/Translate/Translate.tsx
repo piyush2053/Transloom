@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { FaClipboard, FaMagic } from "react-icons/fa";
 import { MenuItem, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
@@ -6,7 +6,7 @@ import Lottie from 'react-lottie';
 import animationData from './loader/loder.json';
 import animationDataPopper from './loader/poppers.json';
 import languages from './LanguagesDropdown.ts';
-import Typist from 'react-typist'; 
+import Typist from 'react-typist';
 import { useLanguage } from '../../LanguageProvider.tsx';
 
 const Translate = () => {
@@ -16,7 +16,6 @@ const Translate = () => {
   const [poppers, setPoppers] = useState(false);
   const languageFromHook = useLanguage()
   const [selectedLanguage, setSelectedLanguage] = useState(languageFromHook.selectedLanguage);
-  const [warning, setWarning] = useState(false);
   const [SuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleButtonClick = () => {
@@ -56,7 +55,6 @@ const Translate = () => {
 
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      setWarning(false)
       handleButtonClick();
     }
   }
@@ -105,8 +103,14 @@ const Translate = () => {
           Translations
         </h1>
       </div>
-      <div className={`flex mx-5 p-1 mt-10 rounded-xl bg-[#141414] ${warning ? 'h-[120px]' : 'h-[100px]'} shadow-black`}>
-        <input ref={inputRef} type='text' className='flex-grow bg-transparent rounded border border-none p-7' placeholder='Enter Your Query' onKeyDown={handleKeyPress}></input>
+      <div className={`flex mx-5 p-1 mt-10 rounded-xl bg-[#141414] shadow-black`}>
+        <textarea
+          ref={inputRef}
+          className='flex-grow bg-transparent rounded p-7'
+          placeholder='Enter Your Query'
+          onKeyDown={handleKeyPress}
+          spellCheck={false}
+        />
       </div>
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center mt-5">
         {selectedLanguage ? (
@@ -131,9 +135,14 @@ const Translate = () => {
               placeholder='Select any Language'
               className='w-[200px] bg-[#141414]'
               onChange={(e) => setSelectedLanguage(e.target.value)}
+              MenuProps={{
+                classes: {
+                  paper: 'menu-paper'
+                }
+              }}
             >
               {languages.map((lang) => (
-                <MenuItem key={lang.value} value={lang.value}>{lang.label}</MenuItem>
+                <MenuItem key={lang.value} value={lang.value} className='menu-item'>{lang.label}</MenuItem>
               ))}
             </Select>
           </div>
@@ -180,21 +189,21 @@ const Translate = () => {
           />}
         </div>
         {definitions && (
-           <div>
+          <div>
             <div>
-            <div className='flex animate-pulse cursor-pointer  gap-2 px-5 bg-[#BDBDBD] w-[200px] rounded-full mb-4' onClick={handleCopyToClipboard}>
-            <FaClipboard className="text-black mt-1"/>
-            <button className='mb-1 text-black font-semibold'>Copy to Clipboard</button>
+              <div className='flex animate-pulse cursor-pointer  gap-2 px-5 bg-[#BDBDBD] w-[200px] rounded-full mb-4' onClick={handleCopyToClipboard}>
+                <FaClipboard className="text-black mt-1" />
+                <button className='mb-1 text-black font-semibold'>Copy to Clipboard</button>
+              </div>
+              {SuccessPopup ? <button className="animate-pulse">Copied to Clipboard !</button> : null}
             </div>
-            {SuccessPopup ? <button className="animate-pulse">Copied to Clipboard !</button> : null}
-            </div>
-           <Typography className='text-[#757575]' variant='h3'>
-             <Typist startDelay={100} avgTypingDelay={30}>{'Translated Text'}{' '}</Typist>
-           </Typography>
-           <Typography sx={{ mb: 1.5 }} className='text-[#757575]'>
-             <Typist startDelay={100} avgTypingDelay={30}>{definitions}</Typist>
-           </Typography>
-         </div>
+            <Typography className='text-[#757575]' variant='h3'>
+              <Typist startDelay={100} avgTypingDelay={30}>{'Translated Text'}{' '}</Typist>
+            </Typography>
+            <Typography sx={{ mb: 1.5 }} className='text-[#757575]'>
+              <Typist startDelay={100} avgTypingDelay={10}>{definitions}</Typist>
+            </Typography>
+          </div>
         )}
       </div>
     </div>

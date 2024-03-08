@@ -44,6 +44,24 @@ input::placeholder {
   color: grey;
 }
 
+textarea {
+  border: none;
+  outline: none;
+  color: rgb(114, 113, 113);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: black transparent;
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background-color: black;
+  border-radius: 4px;
+}
+
 .inverseColor {
   background: linear-gradient(to bottom right, #F37E6A, #8F1A75, #5E94B8);
   background-size: cover;
@@ -51,9 +69,21 @@ input::placeholder {
   -webkit-background-clip: text;
 }
 
+.menu-paper {
+  background-color: #141414 !important;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgb(93, 93, 93) transparent;
+}
+
+.menu-item {
+  color: rgb(179, 179, 179) !important;
+}
+
 .shadow-black {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
 }
+
 .cardsHome:hover {
   background: linear-gradient(to bottom right, #F37E6A, #8F1A75, #5E94B8);
   background-size: cover;
@@ -62,12 +92,14 @@ input::placeholder {
   -webkit-background-clip: text;
   z-index: 1;
 }
+
 .sparkle {
   position: absolute;
   width: 20px;
   height: 20px;
   background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><polygon points="12,2 15.82,8.63 22,9.24 17.46,13.97 18.82,21 12,17.27 5.18,21 6.54,13.97 2,9.24 8.18,8.63" fill="%23E040FB" /></svg>') no-repeat;
-  border-radius: 0; /* No border radius */
+  border-radius: 0;
+  /* No border radius */
   opacity: 0.1;
   animation: sparkle 1s ease-out forwards;
 }
@@ -77,6 +109,7 @@ input::placeholder {
     transform: scale(1);
     opacity: 0.7;
   }
+
   100% {
     transform: scale(1.5);
     opacity: 0;
