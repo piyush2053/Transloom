@@ -91,7 +91,7 @@ const Translate = () => {
   };
 
   return (
-    <div className="fade-in text-white px-4 md:px-0">
+    <div className="fade-in text-white px-4 md:px-0 mt-20">
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         <div className="flex items-center justify-center mb-4">
           <span className="bg-transparent text-[#fff] text-xs font-semibold px-5 py-1 rounded-full flex border border-white">

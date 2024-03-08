@@ -17,7 +17,7 @@ const Home = () => {
     navigate('/translate')
   };
   return (
-    <div className='fade-in '>
+    <div className='fade-in mt-20'>
       <Helmet>
         <title>Transloom - Free Translations for 152 Languages</title>
         <meta name="description" content="Get free translations for 152 languages. Translate your content easily with our translation tool." />

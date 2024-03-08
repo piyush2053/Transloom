@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 
 const ErrorPage = () => {
     return (
-        <div className="fade-in text-white px-4 md:px-0">
+        <div className="fade-in text-white px-4 md:px-0 mt-20">
             <Helmet>
                 <title>Page Not Found</title>
                 <meta name="description" content="Get free translations for 152 languages. Translate your content easily with our translation tool." />
