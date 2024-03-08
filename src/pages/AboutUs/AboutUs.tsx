@@ -29,7 +29,7 @@ const AboutUs = () => {
             Join countless satisfied clients who have entrusted us with their translation needs. Let us help you break down language barriers and expand your global reach. Contact us today to discover how we can transform your words into a universal language of understanding.
           </p>
         </div>
-        <div className="flex gap-2 justify-center">
+        <div className="flex gap-2 justify-center mb-10">
           <div className='flex justify-start' style={{ flexDirection: 'column' }}>
             <h2 className="text-2xl font-bold">Piyush Patel</h2>
             <a href='https://piyush2053.github.io/PortFolio/' target='_blank' rel="noreferrer" className='text-[#BDBDBD] font-semibold bg-[#424242] px-2 rounded-full'>Contact</a>

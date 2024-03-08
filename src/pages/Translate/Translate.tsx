@@ -95,11 +95,10 @@ const Translate = () => {
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         <div className="flex items-center justify-center mb-4">
           <span className="bg-transparent text-[#fff] text-xs font-semibold px-5 py-1 rounded-full flex border border-white">
-            <FaMagic className="text-[#fff] text-1xl mr-1 mt-0.5" />
             Step inside the box where the magic of content Translations unfolds
           </span>
         </div>
-        <h1 className="text-7xl font-bold mb-6">
+        <h1 className="text-5xl md:text-7xl text-white font-bold">
           Translations
         </h1>
       </div>
