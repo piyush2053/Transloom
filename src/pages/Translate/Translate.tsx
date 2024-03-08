@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react';
-import { FaMagic } from "react-icons/fa";
-import { Card, CardContent, MenuItem, Typography } from '@mui/material';
+import { FaClipboard, FaMagic } from "react-icons/fa";
+import { MenuItem, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
 import Lottie from 'react-lottie';
 import animationData from './loader/loder.json';
 import animationDataPopper from './loader/poppers.json';
 import languages from './LanguagesDropdown.ts';
+import Typist from 'react-typist'; 
 
 const Translate = () => {
   const inputRef = useRef(null);
@@ -14,6 +15,7 @@ const Translate = () => {
   const [poppers, setPoppers] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('');
   const [warning, setWarning] = useState(false);
+  const [SuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleButtonClick = () => {
     setLoading(true);
@@ -74,10 +76,20 @@ const Translate = () => {
   };
 
   const selectedLanguageLabel = languages.find(lang => lang.value === selectedLanguage)?.label;
-
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(definitions)
+      .then(() => {
+        setShowSuccessPopup(true);
+        console.log('Text copied to clipboard');
+      })
+      .catch((error) => {
+        setShowSuccessPopup(false);
+        console.error('Error copying text to clipboard:', error);
+      });
+  };
 
   return (
-    <div className="fade-in text-white py-16 px-4 md:px-0 h-screen">
+    <div className="fade-in text-white px-4 md:px-0">
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
         <div className="flex items-center justify-center mb-4">
           <span className="bg-transparent text-[#fff] text-xs font-semibold px-5 py-1 rounded-full flex border border-white">
@@ -89,7 +101,7 @@ const Translate = () => {
           Translations
         </h1>
       </div>
-      <div className={`mx-5 p-1 mt-10 rounded-xl bg-[#141414] ${warning ? 'h-[120px]' : 'h-[100px]'}`}>
+      <div className={`flex mx-5 p-1 mt-10 rounded-xl bg-[#141414] ${warning ? 'h-[120px]' : 'h-[100px]'} shadow-black`}>
         <input ref={inputRef} type='text' className='flex-grow bg-transparent rounded border border-none p-7' placeholder='Enter Your Query' onKeyDown={handleKeyPress}></input>
       </div>
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center mt-5">
@@ -101,7 +113,7 @@ const Translate = () => {
               width={50}
             />
           ) : (
-            <button className='fade in bg-[#fff] flex text-[#8c8c8c] text-[20px] font-semibold px-4 py-1 rounded-full border border-white transition-all duration-300 hover:bg-transparent hover:text-[#fff] hover:animate-pulse' onClick={handleButtonClick}>
+            <button className='fade in bg-[#141414] flex text-[#8c8c8c] text-[20px] font-semibold px-4 py-1 rounded-full border border-white transition-all duration-300 hover:bg-transparent hover:text-[#fff] hover:animate-pulse' onClick={handleButtonClick}>
               Translate to {selectedLanguageLabel} <FaMagic className='ml-2 mt-1' />
             </button>
           )
@@ -112,7 +124,8 @@ const Translate = () => {
               labelId="demo-simple-select-helper-label"
               id="demo-simple-select-helper"
               label="Language"
-              className='w-[200px] bg-white'
+              placeholder='Select any Language'
+              className='w-[200px] bg-[#141414]'
               onChange={(e) => setSelectedLanguage(e.target.value)}
             >
               {languages.map((lang) => (
@@ -124,6 +137,7 @@ const Translate = () => {
       </div>
       <div className="max-w-7xl mx-auto flex flex-col items-center text-center mt-2">
         {selectedLanguage ? <button onClick={() => setSelectedLanguage('')}>Change language</button> : null}
+        {selectedLanguage ? null : <button>Select Any Language</button>}
       </div>
       <div className="fade-in max-w-7xl mx-auto mt-5 px-7" style={{ position: "relative" }}>
         <div className="poppers" style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
@@ -134,13 +148,21 @@ const Translate = () => {
           />}
         </div>
         {definitions && (
-          <Card className="mt-3 rounded-full" sx={{ borderRadius: "20px", backgroundColor: "#1E1E1E" }}>
-            <CardContent>
-              <Typography sx={{ mb: 1.5 }} className='text-[#757575]'>
-                {definitions}
-              </Typography>
-            </CardContent>
-          </Card>
+           <div>
+            <div>
+            <div className='flex cursor-pointer  gap-2 px-5 bg-[#BDBDBD] w-[200px] rounded-full mb-4' onClick={handleCopyToClipboard}>
+            <FaClipboard className="text-black mt-1"/>
+            <button className='mb-1 text-black font-semibold'>Copy to Clipboard</button>
+            </div>
+            {SuccessPopup ? <button className="animate-bounce">Copied to Clipboard !</button> : null}
+            </div>
+           <Typography className='text-[#757575]' variant='h3'>
+             <Typist startDelay={100} avgTypingDelay={30}>{'Translated Text'}{' '}</Typist>
+           </Typography>
+           <Typography sx={{ mb: 1.5 }} className='text-[#757575]'>
+             <Typist startDelay={100} avgTypingDelay={30}>{definitions}</Typist>
+           </Typography>
+         </div>
         )}
       </div>
     </div>

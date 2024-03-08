@@ -1,28 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../../index.css';
 import languages from './languages.ts'
 import { Link } from 'react-router-dom';
+import Typist from 'react-typist'; 
+import Logo from './animation/fac.png'
 
 const Home = () => {
   const getStarted = 'Get Started >'
+  useEffect(() => {
+    const onMouseMove = (e) => {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = `${e.pageX}px`;
+      sparkle.style.top = `${e.pageY}px`;
+      document.body.appendChild(sparkle);
+
+      setTimeout(() => {
+        document.body.removeChild(sparkle);
+      }, 1000);
+    };
+
+    document.addEventListener('mousemove', onMouseMove);
+
+    return () => {
+      document.removeEventListener('mousemove', onMouseMove);
+    };
+  }, []);
   return (
     <div className='fade-in '>
-      <div className="text-white pt-16 pb-5 px-4 md:px-0 flex justify-center" style={{color:"white"}}>
+      <div className="text-white pb-5 px-4 md:px-0 flex justify-center" style={{color:"white"}}>
         <h1 className="text-7xl text-white font-bold">
           Transloom
         </h1>
+        <img src={Logo} alt='Transloom' className='h-[50px] w-[50px] mt-7 ml-2'></img>
       </div>
+      <div className="flex items-center justify-center px-2">
+      <Typist avgTypingDelay={20} className="flex text-gray-500 md:text-xl/relaxed dark:text-gray-400 px-10 justify-center" startDelay={100}> Welcome to Transloom, where language knows no boundaries. With a commitment to bridging the gap between cultures and facilitating global communication, we offer professional translation services in over 152 languages.</Typist>
+        </div>
       <div className='flex justify-center'>
-      <Link to='/translate' className='p-5 bg-white inverseColor text-3xl'>{getStarted}</Link>
+      <Link to='/translate' className='p-5 !bg-white inverseColor text-3xl animate-pulse'>{getStarted}</Link>
       </div>
       <div className='flex justify-center'>
         <h1 className="text-4xl text-white font-bold mt-5 mb-5">
           Supported Languages
         </h1>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-auto max-w-9xl px-4 md:px-6">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-9xl px-4 md:px-6 mb-10">
         {languages.map((language, index) => (
-          <div key={index} className="bg-gray-800 p-4 rounded-lg text-white flex justify-center">
+          <div key={index} className="cardsHome bg-gray-800 p-4 rounded-lg text-white text-[18px] flex justify-center">
             {language}
           </div>
         ))}

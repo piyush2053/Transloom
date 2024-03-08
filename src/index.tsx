@@ -10,11 +10,6 @@ import Translate from './pages/Translate/Translate.tsx';
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      {/* <Helmet>
-        <title>Transloom</title>
-        <meta name="description" content="Content Genius is designed to empower users with the ability to effortlessly refine their sentences into captivating and polished content. With this innovative tool, users can input their sentences and corresponding content, and watch as Content Genius works its magic to generate the top three suggestions, ensuring correctness, coherence, and impact." />
-        <meta name="keywords" content="Content, Genius, Suggestion, AI, Creativity, Innovation, Intelligence, Inspiration, Ingenuity, Insight, Brilliance, Imagination, Visionary, Originality, Resourcefulness, Inventiveness, Expertise, Wisdom, Problem-solving, Futuristic, Analytical, Cutting-edge, Cognitive, Strategic, Adaptive, Vision, Perception, Cognitive Computing, Intuition, Data-driven, Algorithm, Automation, Machine Learning, Neural Networks, Pattern Recognition, Computational Thinking, Deep Learning, Predictive Analytics, Virtual Reality, Augmented Reality, Natural Language Processing, Robotics, Quantum Computing, Cybernetics, Algorithmic Creativity, Smart Systems, Autonomous, Cognitive Computing, Evolutionary Algorithms, Humanoid, Swarm Intelligence, Decision Support Systems, Cognitive Psychology, Emergent Intelligence" />
-      </Helmet> */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
