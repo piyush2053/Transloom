@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaClipboard, FaMagic } from "react-icons/fa";
 import { MenuItem, Typography } from '@mui/material';
 import Select from '@mui/material/Select';
@@ -7,18 +7,21 @@ import animationData from './loader/loder.json';
 import animationDataPopper from './loader/poppers.json';
 import languages from './LanguagesDropdown.ts';
 import Typist from 'react-typist'; 
+import { useLanguage } from '../../LanguageProvider.tsx';
 
 const Translate = () => {
   const inputRef = useRef(null);
   const [definitions, setDefinitions] = useState('');
   const [loading, setLoading] = useState(false);
   const [poppers, setPoppers] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('');
+  const languageFromHook = useLanguage()
+  const [selectedLanguage, setSelectedLanguage] = useState(languageFromHook.selectedLanguage);
   const [warning, setWarning] = useState(false);
   const [SuccessPopup, setShowSuccessPopup] = useState(false);
 
   const handleButtonClick = () => {
     setLoading(true);
+    // @ts-ignore
     const inputValue = inputRef.current.value;
 
     fetch('https://google-translation-unlimited.p.rapidapi.com/translate', {
@@ -76,6 +79,7 @@ const Translate = () => {
   };
 
   const selectedLanguageLabel = languages.find(lang => lang.value === selectedLanguage)?.label;
+
   const handleCopyToClipboard = () => {
     navigator.clipboard.writeText(definitions)
       .then(() => {
@@ -140,7 +144,35 @@ const Translate = () => {
         {selectedLanguage ? null : <button>Select Any Language</button>}
       </div>
       <div className="fade-in max-w-7xl mx-auto mt-5 px-7" style={{ position: "relative" }}>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '0', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+          {poppers && <Lottie
+            options={popperOptions}
+            height={500}
+            width={500}
+          />}
+        </div>
         <div className="poppers" style={{ position: 'absolute', top: 0, left: '50%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+          {poppers && <Lottie
+            options={popperOptions}
+            height={500}
+            width={500}
+          />}
+        </div>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '100%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+          {poppers && <Lottie
+            options={popperOptions}
+            height={500}
+            width={500}
+          />}
+        </div>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '30%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+          {poppers && <Lottie
+            options={popperOptions}
+            height={500}
+            width={500}
+          />}
+        </div>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '70%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
           {poppers && <Lottie
             options={popperOptions}
             height={500}
@@ -150,11 +182,11 @@ const Translate = () => {
         {definitions && (
            <div>
             <div>
-            <div className='flex cursor-pointer  gap-2 px-5 bg-[#BDBDBD] w-[200px] rounded-full mb-4' onClick={handleCopyToClipboard}>
+            <div className='flex animate-pulse cursor-pointer  gap-2 px-5 bg-[#BDBDBD] w-[200px] rounded-full mb-4' onClick={handleCopyToClipboard}>
             <FaClipboard className="text-black mt-1"/>
             <button className='mb-1 text-black font-semibold'>Copy to Clipboard</button>
             </div>
-            {SuccessPopup ? <button className="animate-bounce">Copied to Clipboard !</button> : null}
+            {SuccessPopup ? <button className="animate-pulse">Copied to Clipboard !</button> : null}
             </div>
            <Typography className='text-[#757575]' variant='h3'>
              <Typist startDelay={100} avgTypingDelay={30}>{'Translated Text'}{' '}</Typist>
