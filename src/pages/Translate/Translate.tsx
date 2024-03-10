@@ -12,6 +12,7 @@ import { useLanguage } from '../../LanguageProvider.tsx';
 const Translate = () => {
   const inputRef = useRef(null);
   const [definitions, setDefinitions] = useState('');
+  const [accuracy, setAccuracy] = useState(0)
   const [loading, setLoading] = useState(false);
   const [poppers, setPoppers] = useState(false);
   const languageFromHook = useLanguage()
@@ -39,6 +40,9 @@ const Translate = () => {
       .then(data => {
         setPoppers(true);
         setLoading(false);
+        let original_counter = data.meta.original_counter
+        let translate_counter = data.meta.translate_counter
+        setAccuracy(Math.floor((translate_counter / original_counter) * 100));
         setDefinitions(data.translation_data.translation);
         setSelectedLanguage('')
         setTimeout(() => {
@@ -89,6 +93,15 @@ const Translate = () => {
         console.error('Error copying text to clipboard:', error);
       });
   };
+  const barStyle = {
+    width:'150px',
+    transition: 'width 0.5s ease',
+    backgroundColor: accuracy <= 20 ? '#F44336' : // Red for accuracy 0-20
+                     accuracy <= 40 ? '#FFEB3B' : // Yellow for accuracy 21-40
+                     accuracy <= 60 ? '#FF9800' : // Orange for accuracy 41-60
+                     '#4CAF50',                    // Green for accuracy 61-100
+  };
+  
 
   return (
     <div className="fade-in text-white px-4 md:px-0 mt-20">
@@ -199,9 +212,14 @@ const Translate = () => {
             <Typography className='text-[#757575]' variant='h3'>
               <Typist startDelay={100} avgTypingDelay={30}>{'Translated Text'}{' '}</Typist>
             </Typography>
-            <Typography sx={{ mb: 1.5 }} className='text-[#757575]'>
-              <Typist startDelay={100} avgTypingDelay={10}>{definitions}</Typist>
-            </Typography>
+            <div className="progress mb-10">
+              <div className="progress-bar px-5 rounded-full text-[#212121] font-semibold" role="progressbar" style={barStyle} aria-valuenow={accuracy} aria-valuemin="0" aria-valuemax="100">
+                {accuracy}% Precision
+              </div>
+            </div>
+              <Typography sx={{ mb: 1.5 }} className='text-[#757575]'>
+                <Typist startDelay={100} avgTypingDelay={1}>{definitions}</Typist>
+              </Typography>
           </div>
         )}
       </div>
