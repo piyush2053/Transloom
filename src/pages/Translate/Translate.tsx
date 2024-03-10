@@ -165,7 +165,7 @@ const Translate = () => {
         {selectedLanguage ? null : <button>Select Any Language</button>}
       </div>
       <div className="fade-in max-w-7xl mx-auto mt-5 px-7" style={{ position: "relative" }}>
-        <div className="poppers" style={{ position: 'absolute', top: 0, left: '0', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '10%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
           {poppers && <Lottie
             options={popperOptions}
             height={500}
@@ -179,7 +179,7 @@ const Translate = () => {
             width={500}
           />}
         </div>
-        <div className="poppers" style={{ position: 'absolute', top: 0, left: '100%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '90%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
           {poppers && <Lottie
             options={popperOptions}
             height={500}
