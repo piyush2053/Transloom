@@ -5,6 +5,7 @@ import Select from '@mui/material/Select';
 import Lottie from 'react-lottie';
 import animationData from './loader/loder.json';
 import animationDataPopper from './loader/poppers.json';
+import translateJson from './loader/translate.json';
 import languages from './LanguagesDropdown.ts';
 import Typist from 'react-typist';
 import { useLanguage } from '../../LanguageProvider.tsx';
@@ -79,6 +80,14 @@ const Translate = () => {
       preserveAspectRatio: "xMidYMid slice"
     }
   };
+  const translateOption = {
+    loop: true,
+    autoplay: true,
+    animationData: translateJson,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice"
+    }
+  };
 
   const selectedLanguageLabel = languages.find(lang => lang.value === selectedLanguage)?.label;
 
@@ -94,14 +103,14 @@ const Translate = () => {
       });
   };
   const barStyle = {
-    width:'150px',
+    width: '150px',
     transition: 'width 0.5s ease',
     backgroundColor: accuracy <= 20 ? '#F44336' : // Red for accuracy 0-20
-                     accuracy <= 40 ? '#FFEB3B' : // Yellow for accuracy 21-40
-                     accuracy <= 60 ? '#FF9800' : // Orange for accuracy 41-60
-                     '#4CAF50',                    // Green for accuracy 61-100
+      accuracy <= 40 ? '#FFEB3B' : // Yellow for accuracy 21-40
+        accuracy <= 60 ? '#FF9800' : // Orange for accuracy 41-60
+          '#4CAF50',                    // Green for accuracy 61-100
   };
-  
+
 
   return (
     <div className="fade-in text-white px-4 md:px-0 mt-20">
@@ -111,11 +120,16 @@ const Translate = () => {
             Step inside the box where the magic of content Translations unfolds
           </span>
         </div>
-        <h1 className="text-5xl md:text-7xl text-white font-bold">
+        <h1 className="text-5xl md:text-7xl text-white font-bold mb-5">
           Translations
         </h1>
+        <Lottie
+          options={translateOption}
+          height={100}
+          width={100}
+        />
       </div>
-      <div className={`flex mx-5 p-1 mt-10 rounded-xl bg-[#141414] shadow-black`}>
+      <div className={`flex mx-5 p-1 mt-10 rounded-xl bg-[#212121] shadow-black`}>
         <textarea
           ref={inputRef}
           className='flex-grow bg-transparent rounded p-7'
@@ -145,7 +159,19 @@ const Translate = () => {
               id="demo-simple-select-helper"
               label="Language"
               placeholder='Select any Language'
-              className='w-[200px] bg-[#141414]'
+              sx={{
+                borderRadius: '50px', 
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#757575' 
+                },
+                '&:hover .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#ffffff' 
+                },
+                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                  borderColor: '#ffffff' 
+                }
+              }}          
+              className='w-[200px] bg-[#212121]'
               onChange={(e) => setSelectedLanguage(e.target.value)}
               MenuProps={{
                 classes: {
@@ -165,7 +191,7 @@ const Translate = () => {
         {selectedLanguage ? null : <button>Select Any Language</button>}
       </div>
       <div className="fade-in max-w-7xl mx-auto mt-5 px-7" style={{ position: "relative" }}>
-        <div className="poppers" style={{ position: 'absolute', top: 0, left: '10%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '12%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
           {poppers && <Lottie
             options={popperOptions}
             height={500}
@@ -179,7 +205,7 @@ const Translate = () => {
             width={500}
           />}
         </div>
-        <div className="poppers" style={{ position: 'absolute', top: 0, left: '90%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
+        <div className="poppers" style={{ position: 'absolute', top: 0, left: '88%', transform: 'translate(-50%, -50%)', zIndex: 999 }}>
           {poppers && <Lottie
             options={popperOptions}
             height={500}
@@ -201,25 +227,28 @@ const Translate = () => {
           />}
         </div>
         {definitions && (
-          <div>
+          <div className='mb-20'>
             <div>
-              <div className='flex animate-pulse cursor-pointer  gap-2 px-5 bg-[#BDBDBD] w-[200px] rounded-full mb-4' onClick={handleCopyToClipboard}>
+              <div className='flex animate-bounce cursor-pointer  gap-2 px-5 bg-[#BDBDBD] w-[200px] rounded-lg mb-4' onClick={handleCopyToClipboard}>
                 <FaClipboard className="text-black mt-1" />
                 <button className='mb-1 text-black font-semibold'>Copy to Clipboard</button>
               </div>
-              {SuccessPopup ? <button className="animate-pulse">Copied to Clipboard !</button> : null}
+              {SuccessPopup ? <button className="animate-bounce">Copied to Clipboard !</button> : null}
             </div>
-            <Typography className='text-[#757575]' variant='h3'>
+            <Typography className='text-[#757575]' variant='h4'>
               <Typist startDelay={100} avgTypingDelay={30}>{'Translated Text'}{' '}</Typist>
             </Typography>
-            <div className="progress mb-10">
+            <div className="progress mb-5">
               <div className="progress-bar px-5 rounded-full text-[#212121] font-semibold" role="progressbar" style={barStyle} aria-valuenow={accuracy} aria-valuemin="0" aria-valuemax="100">
                 {accuracy}% Precision
               </div>
             </div>
-              <Typography sx={{ mb: 1.5 }} className='text-[#757575]'>
-                <Typist startDelay={100} avgTypingDelay={1}>{definitions}</Typist>
-              </Typography>
+            <Typography className='fade-in text-[#9E9E9E]'>
+              <div className="definition-box">
+                {definitions}
+              </div>
+            </Typography>
+
           </div>
         )}
       </div>

@@ -75,7 +75,6 @@ textarea::-webkit-scrollbar-thumb {
   scrollbar-width: thin;
   scrollbar-color: rgb(93, 93, 93) transparent;
 }
-
 .menu-item {
   color: rgb(179, 179, 179) !important;
 }
@@ -114,4 +113,11 @@ textarea::-webkit-scrollbar-thumb {
     transform: scale(1.5);
     opacity: 0;
   }
+}
+
+.definition-box {
+  border: 1px solid #757575; /* Border color */
+  background-color: #212121; /* Background color */
+  padding: 10px; /* Padding around the text */
+  border-radius: 5px; /* Optional: Rounded corners */
 }
