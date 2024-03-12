@@ -75,6 +75,7 @@ textarea::-webkit-scrollbar-thumb {
   scrollbar-width: thin;
   scrollbar-color: rgb(93, 93, 93) transparent;
 }
+
 .menu-item {
   color: rgb(179, 179, 179) !important;
 }
